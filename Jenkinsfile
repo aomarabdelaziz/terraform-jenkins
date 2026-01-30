@@ -27,9 +27,19 @@ pipeline {
       }
     }
 
+    // stage('Terraform Plan') {
+    //   steps {
+    //     withAWS(credentials:'aws-role') {
+    //       dir("projects/${params.PROJECT}/${params.ENV}") {
+    //         sh 'terraform plan'
+    //       }
+    //     }
+    //   }
+    // }
+
     stage('Terraform Plan') {
       steps {
-        withAWS(credentials:'aws-role') {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
           dir("projects/${params.PROJECT}/${params.ENV}") {
             sh 'terraform plan'
           }
