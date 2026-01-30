@@ -11,11 +11,11 @@ pipeline {
     ansiColor('xterm')
   }
 
-  parameters {
-    choice(name: 'PROJECT', defaultValue: '', description: 'Terraform project')
-    choice(name: 'ENV', defaultValue: '', description: 'Environment')
-    choice(name: 'COMMAND', defaultValue: 'plan', description: 'Terraform Plan Command')
-  }
+  // parameters {
+  //   choice(name: 'PROJECT', defaultValue: '', description: 'Terraform project')
+  //   choice(name: 'ENV', defaultValue: '', description: 'Environment')
+  //   choice(name: 'COMMAND', defaultValue: 'plan', description: 'Terraform Plan Command')
+  // }
   
   stages {
 
