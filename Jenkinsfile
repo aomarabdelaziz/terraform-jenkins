@@ -31,7 +31,7 @@ pipeline {
 
     stage('Terraform Plan') {
       steps {
-        withAWS(credentials: 'AWS_ROLE') {
+        withAWS(roleArn: 'arn:aws:iam::ACCOUNT_ID:role/PRODCrossAccountRole') {
           dir("projects/${params.PROJECT}/${params.ENV}") {
             sh 'terraform plan'
           }
