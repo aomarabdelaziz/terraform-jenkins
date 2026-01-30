@@ -31,7 +31,7 @@ pipeline {
 
     stage('Terraform Plan') {
       steps {
-        withAWS(role:'PRODCrossAccountRole', roleAccount:'925880893941', externalId: 'my-external-id', duration: 3600, roleSessionName: 'my-custom-session-name') {
+        withAWS(role:'PRODCrossAccountRole', roleAccount:'925880893941') {
           dir("projects/${params.PROJECT}/${params.ENV}") {
             sh 'terraform plan'
           }
