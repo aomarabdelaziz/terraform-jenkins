@@ -38,7 +38,7 @@ pipeline {
          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) 
          {
           sh '''
-            aws sts get-caller-identity
+            aws s3 ls
           '''
         }
       }
