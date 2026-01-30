@@ -2,7 +2,7 @@ pipeline {
 
   agent {
     docker {
-      image 'summerwind/actions-runner:ubuntu-22.04'
+      image 'abdelazizomar/devops-utilites:latest'
       args '-u root:root'
     }
   }
