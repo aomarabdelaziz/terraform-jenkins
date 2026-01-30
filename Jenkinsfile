@@ -12,9 +12,9 @@ pipeline {
   }
 
   parameters {
-    string(name: 'PROJECT', defaultValue: '', description: 'Terraform project')
-    string(name: 'ENV', defaultValue: '', description: 'Environment')
-    string(name: 'COMMAND', defaultValue: 'plan', description: 'Terraform Plan Command')
+    choice(name: 'PROJECT', defaultValue: '', description: 'Terraform project')
+    choice(name: 'ENV', defaultValue: '', description: 'Environment')
+    choice(name: 'COMMAND', defaultValue: 'plan', description: 'Terraform Plan Command')
   }
   
   stages {
