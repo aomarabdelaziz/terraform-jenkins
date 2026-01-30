@@ -31,22 +31,6 @@ pipeline {
       }
     }
 
-  //  stage('Terraform Init & Apply') {   
-  //     steps {
-        
-  //       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
-          
-  //         dir("projects/${params.PROJECT}/${params.ENV}") {
-            
-  //           sh 'terraform init'
-  //           sh "terraform ${params.COMMAND}"
-          
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
 
   stage('Terraform Init') {
         steps {
