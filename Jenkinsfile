@@ -31,70 +31,42 @@ pipeline {
       }
     }
 
-   stage('Terraform Init & Apply') {
-      
-      steps {
+  //  stage('Terraform Init & Apply') {   
+  //     steps {
         
-        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
+  //       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
           
-          dir("projects/${params.PROJECT}/${params.ENV}") {
-            sh 'terraform init'
-            sh "terraform ${params.COMMAND}"
+  //         dir("projects/${params.PROJECT}/${params.ENV}") {
+            
+  //           sh 'terraform init'
+  //           sh "terraform ${params.COMMAND}"
           
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+
+  stage('Terraform Init') {
+        steps {
+          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
+            dir("projects/${params.PROJECT}/${params.ENV}") {
+              sh 'terraform init'
+            }
           }
-        
         }
-      
       }
-    
-    }
-  }
 
-    // stage('Configure AWS') {
-    //   steps {
-        
-    //      withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) 
-    //      {
-    //       sh """
-    //         aws sts get-caller-identity
-
-    //          cd projects/${params.PROJECT}/${params.ENV}
-    //          ls
-
-    //          terraform init
-    //          terraform ${params.COMMAND}
-    //       """
-    //     }
-    //   }
-    // }
-
-
-
-
-
-    // stage('Terraform init') {
-    //   steps {
-        
-
-    //      sh """
-    //         cd projects/${params.PROJECT}/${params.ENV}
-    //         terraform init
-    //       """
-
-    //   }
-    // }
-
-    // stage('Terraform Command') {
-    //   steps {
-        
-
-    //      sh """
-    //         cd projects/${params.PROJECT}/${params.ENV}
-    //         terraform ${params.COMMAND}
-    //       """
-        
-    //   }
-    // }
+      stage('Terraform Plan') {
+        steps {
+          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
+            dir("projects/${params.PROJECT}/${params.ENV}") {
+              sh 'terraform plan'
+            }
+          }
+        }
+      }
     
   
 }
