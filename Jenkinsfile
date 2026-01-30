@@ -31,6 +31,25 @@ pipeline {
       }
     }
 
+   stage('Terraform Init & Apply') {
+      
+      steps {
+        
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
+          
+          dir("projects/${params.PROJECT}/${params.ENV}") {
+            sh 'terraform init'
+            sh "terraform ${params.COMMAND}"
+          
+          }
+        
+        }
+      
+      }
+    
+    }
+  }
+
     // stage('Configure AWS') {
     //   steps {
         
@@ -50,23 +69,6 @@ pipeline {
     // }
 
 
-    dir("projects/${params.PROJECT}/${params.ENV}") {
-      stage('Terraform Init') {
-        steps {
-          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
-            sh "terraform init"
-          }
-        }
-      }
-
-      stage('Terraform Apply') {
-        steps {
-          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
-            sh "terraform ${params.COMMAND}"
-          }
-        }
-      }
-    }
 
 
 
