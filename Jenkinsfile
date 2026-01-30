@@ -1,5 +1,9 @@
 pipeline {
 
+  ansiColor('xterm') {
+      sh 'echo "\033[32mSUCCESS\033[0m"'
+  }
+
   agent {
     docker {
       image 'summerwind/actions-runner:ubuntu-22.04'
