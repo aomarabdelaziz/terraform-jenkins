@@ -34,31 +34,41 @@ pipeline {
       }
     }
 
-    stage('Terraform init AWS') {
+    stage('Configure AWS') {
       steps {
         
          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) 
          {
+          sh '''
+            aws sts get-caller-identity
+          '''
+        }
+      }
+    }
+
+    stage('Terraform init') {
+      steps {
+        
+
          sh """
             cd projects/${params.PROJECT}/${params.ENV}
             terraform init
           """
-        }
+
       }
     }
 
-    stage('Terraform init AWS') {
+    stage('Terraform Command') {
       steps {
         
-         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) 
-         {
+
          sh """
             cd projects/${params.PROJECT}/${params.ENV}
             terraform ${params.COMMAND}
           """
-        }
+        
       }
     }
-
+    
   }
 }
