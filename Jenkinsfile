@@ -29,7 +29,7 @@ pipeline {
 
     stage('Terraform Plan') {
       steps {
-        withAWS(role:'PRODCrossAccountRole', roleAccount:'925880893941') {
+        withAWS(credentials:'aws-role') {
           dir("projects/${params.PROJECT}/${params.ENV}") {
             sh 'terraform plan'
           }
