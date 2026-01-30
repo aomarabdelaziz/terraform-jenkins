@@ -21,7 +21,7 @@ pipeline {
 
     stage('Terraform Init') {
       steps {
-        withAWS(region: 'us-east-1', credentials: 'AWS_ROLE') {
+        withAWS(credentials: 'AWS_ROLE') {
           dir("projects/${params.PROJECT}/${params.ENV}") {
             sh 'terraform init'
           }
@@ -31,7 +31,7 @@ pipeline {
 
     stage('Terraform Plan') {
       steps {
-        withAWS(region: 'us-east-1', credentials: 'AWS_ROLE') {
+        withAWS(credentials: 'AWS_ROLE') {
           dir("projects/${params.PROJECT}/${params.ENV}") {
             sh 'terraform plan'
           }
