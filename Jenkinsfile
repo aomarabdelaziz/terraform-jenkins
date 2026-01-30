@@ -38,10 +38,8 @@ pipeline {
           
           stage('Terraform Init') {
             steps {
-              withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) {
                 dir("projects/${params.PROJECT}/${params.ENV}") {
                   sh 'terraform init'
-                }
               }
             }
           }
