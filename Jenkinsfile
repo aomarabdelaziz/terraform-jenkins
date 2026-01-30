@@ -20,11 +20,9 @@ pipeline {
 
 
     stage('Terraform Init') {
-      steps {
-        withAWS(credentials: 'AWS_ROLE') {
+      steps {    
           dir("projects/${params.PROJECT}/${params.ENV}") {
             sh 'terraform init'
-          }
         }
       }
     }
