@@ -2,7 +2,7 @@ provider "aws" {
   region = local.region
 
   assume_role {
-    role_arn = "arn:aws:iam::925880893941:role/terraform-role"
+    role_arn = "arn:aws:iam::925880893941:role/PRODCrossAccountRole" //terraform-role
   }
   
 }
