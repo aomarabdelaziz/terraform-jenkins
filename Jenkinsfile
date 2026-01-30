@@ -38,34 +38,40 @@ pipeline {
          {
           sh '''
             aws sts get-caller-identity
+
+             cd projects/${params.PROJECT}/${params.ENV}
+             ls
+
+             terraform init
+             terraform ${params.COMMAND}
           '''
         }
       }
     }
 
-    stage('Terraform init') {
-      steps {
+    // stage('Terraform init') {
+    //   steps {
         
 
-         sh """
-            cd projects/${params.PROJECT}/${params.ENV}
-            terraform init
-          """
+    //      sh """
+    //         cd projects/${params.PROJECT}/${params.ENV}
+    //         terraform init
+    //       """
 
-      }
-    }
+    //   }
+    // }
 
-    stage('Terraform Command') {
-      steps {
+    // stage('Terraform Command') {
+    //   steps {
         
 
-         sh """
-            cd projects/${params.PROJECT}/${params.ENV}
-            terraform ${params.COMMAND}
-          """
+    //      sh """
+    //         cd projects/${params.PROJECT}/${params.ENV}
+    //         terraform ${params.COMMAND}
+    //       """
         
-      }
-    }
+    //   }
+    // }
     
   }
 }
