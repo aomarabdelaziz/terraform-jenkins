@@ -27,6 +27,7 @@ pipeline {
       steps {
         sh '''
           set -e
+          which aws || (curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip && unzip -o awscliv2.zip && ./aws/install)
         '''
       }
     }
@@ -34,12 +35,12 @@ pipeline {
     stage('Configure AWS') {
       steps {
         
-         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'FINTECH_TEST_AWS_ACCESS']]) 
-         {
-          sh '''
-            aws sts get-caller-identity
-          '''
-        }
+        //  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'FINTECH_TEST_AWS_ACCESS']]) 
+        //  {
+        //   sh '''
+        //     aws sts get-caller-identity
+        //   '''
+        // }
       }
     }
 
