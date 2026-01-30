@@ -11,8 +11,10 @@ pipeline {
     ansiColor('xterm')
   }
 
-  environment {
-    AWS_REGION = "eu-west-1"
+  parameters {
+    string(name: 'PROJECT', defaultValue: '', description: 'Terraform project')
+    string(name: 'ENV', defaultValue: '', description: 'Environment')
+    string(name: 'COMMAND', defaultValue: 'plan', description: 'Terraform Plan Command')
   }
   
   stages {
@@ -38,8 +40,21 @@ pipeline {
          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) 
          {
           sh '''
-            aws s3 ls
+            aws sts get-caller-identity
           '''
+        }
+      }
+    }
+
+    stage('Terraform init AWS') {
+      steps {
+        
+         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) 
+         {
+         sh """
+            cd projects/${params.PROJECT}/${params.ENV}
+            terraform init
+          """
         }
       }
     }
