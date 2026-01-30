@@ -35,7 +35,7 @@ pipeline {
     stage('Configure AWS') {
       steps {
         
-         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-prod']]) 
+         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ACCESS']]) 
          {
           sh '''
             aws sts get-caller-identity
