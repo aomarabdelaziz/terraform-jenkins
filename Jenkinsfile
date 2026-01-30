@@ -7,6 +7,9 @@ pipeline {
     }
   }
 
+  options {
+    ansiColor('xterm')
+  }
 
 
   
