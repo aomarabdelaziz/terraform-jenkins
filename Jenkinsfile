@@ -2,7 +2,7 @@ pipeline {
 
   agent {
     docker {
-      image 'summerwind/actions-runner:ubuntu-22.04'
+      image 'nginx'
       args '-u root:root'
     }
   }
