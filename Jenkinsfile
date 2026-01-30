@@ -36,7 +36,7 @@ pipeline {
         
          withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_ROLE']]) 
          {
-          sh '''
+          sh """
             aws sts get-caller-identity
 
              cd projects/${params.PROJECT}/${params.ENV}
@@ -44,7 +44,7 @@ pipeline {
 
              terraform init
              terraform ${params.COMMAND}
-          '''
+          """
         }
       }
     }
