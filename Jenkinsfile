@@ -1,7 +1,5 @@
 pipeline {
 
-
-
   agent {
     docker {
       image 'summerwind/actions-runner:ubuntu-22.04'
@@ -11,6 +9,10 @@ pipeline {
 
   options {
     ansiColor('xterm')
+  }
+
+  environment {
+    AWS_REGION = "eu-west-1"
   }
   
   stages {
@@ -32,5 +34,18 @@ pipeline {
         '''
       }
     }
+
+    stage('Configure AWS') {
+      steps {
+        
+         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-prod']]) 
+         {
+          sh '''
+            aws sts get-caller-identity
+          '''
+        }
+      }
+    }
+
   }
 }
